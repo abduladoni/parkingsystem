@@ -39,10 +39,10 @@ class ParkingFeeHelperImplTest {
     @DisplayName("Calculate parking fee for Non Sunday daily parking")
     void calculateParkingFeeForDailyParking() {
         ParkingVehicle parkingVehicle = new ParkingVehicle();
-        parkingVehicle.setStartTime(LocalDateTime.now().with(DayOfWeek.MONDAY));
+        parkingVehicle.setStartTime(LocalDateTime.now().minusHours(2));
+        LocalDateTime endTime = LocalDateTime.now();
 
-        when(dailyParkingFeeStrategy.calculateParkingFee(any(ParkingVehicle.class), any(LocalDateTime.class),
-                any(LocalDateTime.class)))
+        when(dailyParkingFeeStrategy.calculateParkingFee(any(ParkingVehicle.class), any(LocalDateTime.class), any(LocalDateTime.class)))
                 .thenReturn(BigDecimal.valueOf(20));
 
         BigDecimal result = parkingFeeHelper.calculateParkingFee(parkingVehicle);

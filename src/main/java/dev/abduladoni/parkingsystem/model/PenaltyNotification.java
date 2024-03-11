@@ -1,11 +1,6 @@
 package dev.abduladoni.parkingsystem.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +9,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name = "penalty_notification")
+@Table(name = "penalty_notification", indexes = {
+        @Index(name = "idx_penalty_sent", columnList = "penalty_sent")
+})
 public class PenaltyNotification {
 
     @Id

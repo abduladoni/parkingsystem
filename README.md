@@ -26,6 +26,10 @@ project is build using the following Language/Frameworks:
 ## How to run the project
 After cloning this repository run the following maven command from the root directory to get started
 
+Change the following properties in application.properties file according to your environment
+- report.location=C:\\personal\\projects\\reports
+
+
 mvn -U clean package spring-boot:run
 
 The application can be accessed on port 8080
