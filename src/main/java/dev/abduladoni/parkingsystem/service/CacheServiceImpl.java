@@ -14,8 +14,12 @@ import java.util.stream.Collectors;
 @Service
 public class CacheServiceImpl implements CacheService {
 
-    @Autowired
     private ParkingTariffMetaDataRepository parkingTariffMetaDataRepository;
+
+    @Autowired
+    public CacheServiceImpl(final ParkingTariffMetaDataRepository parkingTariffMetaDataRepository){
+        this.parkingTariffMetaDataRepository = parkingTariffMetaDataRepository;
+    }
 
     @PostConstruct
     @Cacheable("parkingTariffMetaData")

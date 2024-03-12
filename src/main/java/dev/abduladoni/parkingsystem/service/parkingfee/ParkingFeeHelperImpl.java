@@ -31,7 +31,7 @@ public class ParkingFeeHelperImpl implements ParkingFeeHelper {
     @Override
     public BigDecimal calculateParkingFee(ParkingVehicle parkingVehicle) {
         LocalDateTime startTime = parkingVehicle.getStartTime();
-        LocalDateTime endTime = LocalDateTime.now();
+        LocalDateTime endTime = parkingVehicle.getEndTime();
 
         BigDecimal totalFee = BigDecimal.ZERO;
         while (startTime.isBefore(endTime)) {

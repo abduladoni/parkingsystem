@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface ParkingService {
 
-    void parkVehicle(final ParkingVehicleRequestDTO parkingVehicleRequestDTO);
+    void registerVehicle(final ParkingVehicleRequestDTO parkingVehicleRequestDTO);
 
-    ParkingSessionDTO unParkVehicle(final String vehicleNumber);
+    ParkingSessionDTO unRegisterVehicle(final String vehicleNumber);
 
     void penalizeUnregisteredVehicles(final List<MonitorParkingVehicleRequestDTO> parkingVehicleRequestDTOs);
 

@@ -50,7 +50,7 @@ public class ParkingServiceImpl implements ParkingService {
     }
 
     @Override
-    public void parkVehicle(ParkingVehicleRequestDTO parkingVehicleRequestDTO) {
+    public void registerVehicle(ParkingVehicleRequestDTO parkingVehicleRequestDTO) {
         LOGGER.info("Starting parkVehicle method for vehicle: {}", parkingVehicleRequestDTO.getVehicleNumber());
         try {
             validateStreetName(parkingVehicleRequestDTO.getStreetName());
@@ -66,10 +66,11 @@ public class ParkingServiceImpl implements ParkingService {
     }
 
     @Override
-    public ParkingSessionDTO unParkVehicle(String vehicleNumber) {
+    public ParkingSessionDTO unRegisterVehicle(String vehicleNumber) {
         LOGGER.info("Starting unParkVehicle method for vehicle: {}", vehicleNumber);
         try {
             ParkingVehicle parkingVehicle = getActiveParkingSession(vehicleNumber);
+            parkingVehicle.setEndTime(LocalDateTime.now());
             // Calculate the parking fee
             BigDecimal parkingFee = parkingFeeHelper.calculateParkingFee(parkingVehicle);
 

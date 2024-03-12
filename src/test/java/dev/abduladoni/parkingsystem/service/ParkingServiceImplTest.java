@@ -17,7 +17,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
@@ -71,7 +70,7 @@ class ParkingServiceImplTest {
         when(cacheService.loadParkingTariffMetaData()).thenReturn(Collections.singletonMap("Street1", 1));
 
         // When
-        parkingService.parkVehicle(requestDTO);
+        parkingService.registerVehicle(requestDTO);
 
         // Then
         verify(parkingVehicleRepository, times(1)).save(any());
@@ -92,7 +91,7 @@ class ParkingServiceImplTest {
         // When
         // Then
         assertThrows(InvalidParkingRequestException.class,
-                ()->parkingService.parkVehicle(requestDTO));
+                ()->parkingService.registerVehicle(requestDTO));
     }
 
 
@@ -108,7 +107,7 @@ class ParkingServiceImplTest {
         when(parkingFeeHelper.calculateParkingFee(parkingVehicle)).thenReturn(BigDecimal.ONE);
 
         // When
-        ParkingSessionDTO result = parkingService.unParkVehicle(vehicleNumber);
+        ParkingSessionDTO result = parkingService.unRegisterVehicle(vehicleNumber);
 
         // Then
         assertNotNull(result);
@@ -126,7 +125,7 @@ class ParkingServiceImplTest {
         // When
         // Then
         assertThrows(InvalidParkingRequestException.class,
-                ()->parkingService.unParkVehicle(vehicleNumber));
+                ()->parkingService.unRegisterVehicle(vehicleNumber));
     }
 
     @Test

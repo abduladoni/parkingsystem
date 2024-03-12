@@ -44,8 +44,8 @@ public class DailyParkingFeeStrategy implements ParkingFeeStrategy {
         long totalMinutes = 0;
 
         while (startTime.isBefore(endTime)) {
-            if (!(startTime.toLocalTime().isBefore(LocalTime.of(8, 0))
-                    || startTime.toLocalTime().isAfter(LocalTime.of(21, 0)))) {
+            if ((startTime.toLocalTime().isAfter(LocalTime.of(7, 59))
+                    && startTime.toLocalTime().isBefore(LocalTime.of(21, 0)))) {
                 totalMinutes++;
             }
             startTime = startTime.plusMinutes(1);

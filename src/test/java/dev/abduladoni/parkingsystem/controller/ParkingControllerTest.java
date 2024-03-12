@@ -37,7 +37,7 @@ public class ParkingControllerTest {
     @Test
     @DisplayName("Should park a vehicle successfully")
     public void shouldParkVehicleSuccessfully() throws Exception {
-        doNothing().when(parkingService).parkVehicle(any(ParkingVehicleRequestDTO.class));
+        doNothing().when(parkingService).registerVehicle(any(ParkingVehicleRequestDTO.class));
 
         mockMvc.perform(post("/parking/v1/vehicles/register")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -49,7 +49,7 @@ public class ParkingControllerTest {
     @DisplayName("Should return bad request when invalid vehicle details are provided for parking")
     public void shouldReturnBadRequestWhenInvalidVehicleDetailsAreProvidedForParking() throws Exception {
         doThrow(new InvalidParkingRequestException("Invalid vehicle details"))
-                .when(parkingService).parkVehicle(any(ParkingVehicleRequestDTO.class));
+                .when(parkingService).registerVehicle(any(ParkingVehicleRequestDTO.class));
         mockMvc.perform(post("/parking/v1/vehicles/register")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"vehicleNumber\":\"\",\"streetName\":\"\"}"))
@@ -59,7 +59,7 @@ public class ParkingControllerTest {
     @Test
     @DisplayName("Should unpark a vehicle successfully")
     public void shouldUnparkVehicleSuccessfully() throws Exception {
-        when(parkingService.unParkVehicle(anyString()))
+        when(parkingService.unRegisterVehicle(anyString()))
                 .thenReturn(ParkingSessionDTO.builder().parkingFee("10.0").build());
 
         mockMvc.perform(put("/parking/v1/vehicles/AA-690-A/unregister"))
@@ -70,7 +70,7 @@ public class ParkingControllerTest {
     @DisplayName("Should return bad request when invalid vehicle number is provided for unparking")
     public void shouldReturnBadRequestWhenInvalidVehicleNumberIsProvidedForUnparking() throws Exception {
          doThrow(new InvalidParkingRequestException("No active parking session found for vehicle: AA-691-A"))
-                .when(parkingService).unParkVehicle("AA-691-A");
+                .when(parkingService).unRegisterVehicle("AA-691-A");
         mockMvc.perform(put("/parking/v1/vehicles/AA-691-A/unregister"))
                 .andExpect(status().isBadRequest());
     }

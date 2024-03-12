@@ -32,7 +32,7 @@ public class ParkingController {
     }
 
 
-    @Operation(summary = "Register/Park a vehicle", description = "This API is used to park a vehicle.")
+    @Operation(summary = "Register a vehicle", description = "This API is used to register a vehicle.")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description="Success. Parking session has begun",
                     content = { @Content(mediaType = "application/json",
@@ -45,16 +45,16 @@ public class ParkingController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) })
     })
     @PostMapping(value = "vehicles/register")
-    public ResponseEntity<ResponseDTO> parkVehicle(
+    public ResponseEntity<ResponseDTO> registerVehicle(
             @Parameter(description = "Vehicle details", required = true)
             @Valid @RequestBody ParkingVehicleRequestDTO vehicle) {
-        parkingService.parkVehicle(vehicle);
+        parkingService.registerVehicle(vehicle);
         ResponseDTO response = ResponseDTO.builder().message("Vehicle parked successfully").build();
         return ResponseEntity.ok(response);
     }
 
 
-    @Operation(summary = "Unpark a vehicle", description = "This API is used to unpark a vehicle.")
+    @Operation(summary = "Unregister a vehicle", description = "This API is used to unregister a vehicle.")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description="Success. Parking session has ended",
                     content = { @Content(mediaType = "application/json",
@@ -67,10 +67,10 @@ public class ParkingController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) })
     })
     @PutMapping(value = "vehicles/{vehicleNumber}/unregister")
-    public ResponseEntity<ResponseDTO> unParkVehicle(
+    public ResponseEntity<ResponseDTO> unRegisterVehicle(
             @Parameter(description = "Vehicle number", required = true)
             @PathVariable(value = "vehicleNumber") String vehicleNumber) {
-        ParkingSessionDTO parkingSessionDTO = parkingService.unParkVehicle(vehicleNumber);
+        ParkingSessionDTO parkingSessionDTO = parkingService.unRegisterVehicle(vehicleNumber);
         ResponseDTO response = ResponseDTO
                 .builder()
                 .message(String.format("Parking session has ended, and you owe %s euros.",
