@@ -41,7 +41,7 @@ public class ParkingControllerTest {
 
         mockMvc.perform(post("/parking/v1/vehicles/register")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"vehicleNumber\":\"AA-690-A\",\"streetName\":\"Azure\"}"))
+                .content("{\"vehicleNumber\":\"AA-69-AB\",\"streetName\":\"Azure\"}"))
                 .andExpect(status().isOk());
     }
 
@@ -54,6 +54,17 @@ public class ParkingControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"vehicleNumber\":\"\",\"streetName\":\"\"}"))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("Should return internal server error when some random error occurs during parking registration")
+    public void shouldReturnInternalServerErrorWhenInvalidVehicleDetailsAreProvidedForParking() throws Exception {
+        doThrow(new RuntimeException("Something went wrong"))
+                .when(parkingService).registerVehicle(any(ParkingVehicleRequestDTO.class));
+        mockMvc.perform(post("/parking/v1/vehicles/register")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"vehicleNumber\":\"ABC\",\"streetName\":\"MBC\"}"))
+                .andExpect(status().is5xxServerError());
     }
 
     @Test
@@ -83,7 +94,8 @@ public class ParkingControllerTest {
 
         mockMvc.perform(post("/parking/v1/vehicles/penalties")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("[{\"vehicleNumber\":\"AA-691-A\",\"streetName\":\"Jakarta\"}]"))
+                .content("[{\"vehicleNumber\":\"AA-691-A\",\"streetName\":\"Jakarta\"," +
+                        " \"observationDate\":\"2024-03-12 00:00:00\"}]"))
                 .andExpect(status().isOk());
     }
 
@@ -94,7 +106,8 @@ public class ParkingControllerTest {
                 .when(parkingService).penalizeUnregisteredVehicles(any());
         mockMvc.perform(post("/parking/v1/vehicles/penalties")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("[{\"vehicleNumber\":\"AA-990-B\",\"streetName\":\"Main Land\"}]"))
+                        .content("[{\"vehicleNumber\":\"AA-691-A\",\"streetName\":\"Main Land\"," +
+                                " \"observationDate\":\"2024-03-12 00:00:00\"}]"))
                 .andExpect(status().isBadRequest());
     }
 }

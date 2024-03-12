@@ -7,6 +7,7 @@ import dev.abduladoni.parkingsystem.dto.ParkingVehicleRequestDTO;
 import dev.abduladoni.parkingsystem.exception.ApiErrorResponse;
 import dev.abduladoni.parkingsystem.service.ParkingService;
 import io.swagger.v3.oas.annotations.Parameter;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.List;
 
 
@@ -69,7 +70,7 @@ public class ParkingController {
     @PutMapping(value = "vehicles/{vehicleNumber}/unregister")
     public ResponseEntity<ResponseDTO> unRegisterVehicle(
             @Parameter(description = "Vehicle number", required = true)
-            @PathVariable(value = "vehicleNumber") String vehicleNumber) {
+            @NotBlank @PathVariable(value = "vehicleNumber") String vehicleNumber) {
         ParkingSessionDTO parkingSessionDTO = parkingService.unRegisterVehicle(vehicleNumber);
         ResponseDTO response = ResponseDTO
                 .builder()
@@ -95,7 +96,7 @@ public class ParkingController {
     @PostMapping(value = "vehicles/penalties")
     public ResponseEntity<ResponseDTO> penalizeUnregisteredVehicles(
             @Parameter(description = "List of vehicle details", required = true)
-            @Valid @RequestBody List<MonitorParkingVehicleRequestDTO> vehicles) {
+            @RequestBody List<@Valid MonitorParkingVehicleRequestDTO> vehicles) {
         parkingService.penalizeUnregisteredVehicles(vehicles);
         ResponseDTO response = ResponseDTO.builder()
                                 .message("Unregistered Vehicles are penalized successfully").build();
