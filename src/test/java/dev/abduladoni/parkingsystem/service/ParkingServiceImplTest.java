@@ -50,7 +50,8 @@ class ParkingServiceImplTest {
     private ParkingServiceImpl parkingService;
 
     @AfterEach
-    giRepository);
+    public void afterEach(){
+        reset(parkingVehicleRepository);
         reset(cacheService);
         reset(parkingFeeHelper);
         reset(penaltyNotificationRepository);
