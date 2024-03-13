@@ -14,13 +14,13 @@ class PenaltyNotificationMapperTest {
     private PenaltyNotificationMapper mapper;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         mapper = Mappers.getMapper(PenaltyNotificationMapper.class);
     }
 
     @Test
     @DisplayName("Should map DTO to Model correctly")
-    void shouldMapDtoToModelCorrectly() {
+    public void shouldMapDtoToModelCorrectly() {
         MonitorParkingVehicleRequestDTO dto = MonitorParkingVehicleRequestDTO.  builder()
                 .vehicleNumber("123ABC").streetName("Test Street").observationTime("2024-03-09 09:00:00").build();
 

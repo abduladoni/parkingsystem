@@ -29,13 +29,13 @@ class PenaltyNotificationReportTaskTest {
             .getResource("").getFile()).getAbsolutePath();
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         MockitoAnnotations.openMocks(this);
         ReflectionTestUtils.setField(penaltyNotificationReportTask, "reportLocation", reportLocation);
     }
 
     @AfterEach
-    void tearDown() {
+    public void tearDown() {
         File reportDirectory = new File(reportLocation);
         for (File file : reportDirectory.listFiles()) {
             if (file.getName().startsWith("report_")) {
@@ -46,7 +46,7 @@ class PenaltyNotificationReportTaskTest {
 
     @Test
     @DisplayName("Should generate report when there are penalty notifications")
-    void shouldGenerateReportWhenThereArePenaltyNotifications() {
+    public void shouldGenerateReportWhenThereArePenaltyNotifications() {
         // Given
         PenaltyNotification penaltyNotification = new PenaltyNotification();
         penaltyNotification.setLicensePlateNumber("123ABC");
@@ -64,7 +64,7 @@ class PenaltyNotificationReportTaskTest {
 
     @Test
     @DisplayName("Should not generate report when there are no penalty notifications")
-    void shouldNotGenerateReportWhenThereAreNoPenaltyNotifications() {
+    public void shouldNotGenerateReportWhenThereAreNoPenaltyNotifications() {
         // Given
         when(penaltyNotificationRepository.findByPenaltySentFalse()).thenReturn(Collections.emptyList());
 

@@ -26,7 +26,7 @@ class ParkingVehicleRepositoryTest {
     private ParkingVehicle parkingVehicle;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         parkingVehicle = new ParkingVehicle();
         parkingVehicle.setLicensePlateNumber("123ABC");
         parkingVehicle.setStatus(ParkingStatus.ACTIVE.getStatus());
@@ -34,7 +34,7 @@ class ParkingVehicleRepositoryTest {
     }
 
     @AfterEach
-    void afterEach() {
+    public void afterEach() {
         entityManager.clear();
     }
 

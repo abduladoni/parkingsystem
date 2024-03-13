@@ -30,7 +30,7 @@ class ParkingFeeHelperImplTest {
     private ParkingFeeHelperImpl parkingFeeHelper;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         CacheService cacheService1 = new CacheServiceImpl(customImplParkingTariffMetaDataRepository());
         DailyParkingFeeStrategy dailyParkingFeeStrategy1 = new DailyParkingFeeStrategy(cacheService1);
         SundayParkingFeeStrategy sundayParkingFeeStrategy1 = new SundayParkingFeeStrategy();

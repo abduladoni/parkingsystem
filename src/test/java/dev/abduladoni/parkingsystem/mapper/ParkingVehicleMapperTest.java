@@ -23,7 +23,7 @@ class ParkingVehicleMapperTest {
 
     @Test
     @DisplayName("Should map DTO to Model correctly")
-    void shouldMapDtoToModelCorrectly() {
+    public void shouldMapDtoToModelCorrectly() {
         // Given
         ParkingVehicleRequestDTO dto = ParkingVehicleRequestDTO.builder()
                 .vehicleNumber("123ABC").streetName("Test Street").build();
@@ -39,7 +39,7 @@ class ParkingVehicleMapperTest {
 
     @Test
     @DisplayName("Should set current time as start time and last updated timestamp")
-    void shouldSetCurrentTimeAsStartTimeAndLastUpdatedTimestamp() {
+    public void shouldSetCurrentTimeAsStartTimeAndLastUpdatedTimestamp() {
         // Given
         ParkingVehicleRequestDTO dto = ParkingVehicleRequestDTO.builder()
                 .vehicleNumber("123ABC").streetName("Test Street").build();

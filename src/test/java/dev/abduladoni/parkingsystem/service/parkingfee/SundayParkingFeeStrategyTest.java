@@ -21,13 +21,13 @@ class SundayParkingFeeStrategyTest {
     private SundayParkingFeeStrategy sundayParkingFeeStrategy;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
     @DisplayName("Calculate parking fee on Sunday")
-    void calculateParkingFeeOnSunday() {
+    public void calculateParkingFeeOnSunday() {
         BigDecimal result = sundayParkingFeeStrategy.calculateParkingFee(parkingVehicle,
                 LocalDateTime.of(2024, 3, 10, 9, 0),
                 LocalDateTime.of(2024, 3, 10, 10, 0));
@@ -37,7 +37,7 @@ class SundayParkingFeeStrategyTest {
 
     @Test
     @DisplayName("Calculate parking fee on Non Sunday")
-    void calculateParkingFeeOnNonSunday() {
+    public void calculateParkingFeeOnNonSunday() {
         BigDecimal result = sundayParkingFeeStrategy.calculateParkingFee(parkingVehicle,
                 LocalDateTime.of(2024, 3, 11, 9, 0),
                 LocalDateTime.of(2024, 3, 11, 10, 0));
