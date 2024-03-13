@@ -20,6 +20,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import java.util.List;
 
+import static dev.abduladoni.parkingsystem.constant.Constants.*;
+
 
 @RestController
 @RequestMapping(value="parking/v1/")
@@ -50,7 +52,7 @@ public class ParkingController {
             @Parameter(description = "Vehicle details", required = true)
             @Valid @RequestBody ParkingVehicleRequestDTO vehicle) {
         parkingService.registerVehicle(vehicle);
-        ResponseDTO response = ResponseDTO.builder().message("Vehicle parked successfully").build();
+        ResponseDTO response = ResponseDTO.builder().message(VEHICLE_REGISTERED_SUCCESS).build();
         return ResponseEntity.ok(response);
     }
 
@@ -74,7 +76,7 @@ public class ParkingController {
         ParkingSessionDTO parkingSessionDTO = parkingService.unRegisterVehicle(vehicleNumber);
         ResponseDTO response = ResponseDTO
                 .builder()
-                .message(String.format("Parking session has ended, and you owe %s euros.",
+                .message(String.format(VEHICLE_UNREGISTERED_SUCCESS,
                         parkingSessionDTO.getParkingFee())).build();
         return ResponseEntity.ok(response);
     }
@@ -99,7 +101,7 @@ public class ParkingController {
             @RequestBody List<@Valid MonitorParkingVehicleRequestDTO> vehicles) {
         parkingService.penalizeUnregisteredVehicles(vehicles);
         ResponseDTO response = ResponseDTO.builder()
-                                .message("Unregistered Vehicles are penalized successfully").build();
+                                .message(VEHICLE_UNREGISTERED_PENALIZED_SUCCESS).build();
         return ResponseEntity.ok(response);
     }
 

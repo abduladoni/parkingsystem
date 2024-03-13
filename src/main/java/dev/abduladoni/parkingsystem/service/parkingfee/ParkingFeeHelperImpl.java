@@ -33,6 +33,8 @@ public class ParkingFeeHelperImpl implements ParkingFeeHelper {
         LocalDateTime startTime = parkingVehicle.getStartTime();
         LocalDateTime endTime = parkingVehicle.getEndTime();
 
+        LOGGER.info("Calculating parking fee for vehicle: {} from: {} to: {}",
+                parkingVehicle.getLicensePlateNumber(), startTime, endTime);
         BigDecimal totalFee = BigDecimal.ZERO;
         while (startTime.isBefore(endTime)) {
             LocalDateTime nextDay = startTime.plusDays(1).truncatedTo(ChronoUnit.DAYS);
@@ -55,7 +57,7 @@ public class ParkingFeeHelperImpl implements ParkingFeeHelper {
                 startTime = nextDay;
             }
         }
-
+        LOGGER.info("Calculated parking fee for vehicle: {} is: {}", parkingVehicle.getLicensePlateNumber(), totalFee);
         return totalFee;
     }
 

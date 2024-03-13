@@ -3,6 +3,8 @@ package dev.abduladoni.parkingsystem.service.parkingfee;
 import dev.abduladoni.parkingsystem.exception.InvalidParkingRequestException;
 import dev.abduladoni.parkingsystem.model.ParkingVehicle;
 import dev.abduladoni.parkingsystem.service.CacheService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -15,6 +17,8 @@ import java.util.Map;
 @Component
 @Qualifier("dailyParkingFeeStrategy")
 public class DailyParkingFeeStrategy implements ParkingFeeStrategy {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DailyParkingFeeStrategy.class);
     private final CacheService cacheService;
 
     @Autowired
@@ -25,6 +29,8 @@ public class DailyParkingFeeStrategy implements ParkingFeeStrategy {
     public BigDecimal calculateParkingFee(ParkingVehicle parkingVehicle, LocalDateTime startTime, LocalDateTime endTime) {
         Integer tariff = getTariff(parkingVehicle.getStreetName());
         long totalMinutes = calculateTotalMinutes(startTime, endTime);
+        LOGGER.info("Calculated total minutes DailyParkingFeeStrategy for vehicle: {} from: {} to: {}",
+                parkingVehicle.getLicensePlateNumber(), startTime, endTime);
 
         return BigDecimal.valueOf(totalMinutes * tariff).divide(BigDecimal.valueOf(100));
     }
