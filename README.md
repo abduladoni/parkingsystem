@@ -4,7 +4,7 @@ cars/vehicle to register/unregister a parking session, monitor the registrations
 
 ## Table of Contents
 - [Features](#features)
-- [Technology Stack](#Technology Stack)
+- [Tech Stack](#TechStack)
 - [Setup](#setup)
 - [Endpoints](#endpoints)
 
@@ -20,7 +20,7 @@ The system should be able to handle the following scenarios:
 
 Three APIs are provided to handle the above scenarios
 
-## Technology Stack
+## TechStack
 project is build using the following Language/Frameworks:
 - Java              21
 - Spring Boot       3.2.3
